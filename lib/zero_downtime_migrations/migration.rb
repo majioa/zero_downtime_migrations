@@ -76,10 +76,10 @@ module ZeroDowntimeMigrations
       %i(add_index).include?(method)
     end
 
-    def method_missing(method, *args)
+    def method_missing(method, *args, **hargs)
       Migration.ddl = true if ddl_method?(method)
       Migration.index = true if index_method?(method)
-      validate(method, *args)
+      validate(method, *args, **hargs)
       super
     end
 
